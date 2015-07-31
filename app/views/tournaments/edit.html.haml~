@@ -1,0 +1,6 @@
+%h3 Edit a Tournament
+=form_for @tournaments do |t|
+  =f.label "Name"
+  =f.text_field :name
+  %br
+  =f.submit

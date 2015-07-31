@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  get "login",to: 'users#index'
+#  get  "user" , to: "users#show"
+  post "users",to: "users#login"
+  get "welcome",to: "users#display"
+  get "logout",to:"users#logout"
+  root 'tournaments#dashboard'
+  resources :games
   concern :match do
-    resources :match
+    resources :matches
   end
-  resources :tournament, only: [:show, :index]  do 
+  resources :tournament  do 
     concerns :match
   end
-
+  concerns :match
+  resources :players
+=begin
   concerns :match, except: [:create]
   namespace :admin do
     resources :tournament
@@ -32,4 +41,5 @@ Rails.application.routes.draw do
        resources :ads, as: 'periodical_ads'
    end
    get '/stories/:name', to: redirect('/articles/%{name}')
+=end
 end

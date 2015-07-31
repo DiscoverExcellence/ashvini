@@ -4,7 +4,13 @@ class Tournament < ActiveRecord::Base
   belongs_to :game
   def winner
     winner= scores.select("player_id").group(:player_id).order("sum(points) desc").first
-    winner.player.name
+    if winner
+      winner.player.name 
+    else 
+      p "No Winner"
+    end
+
+
   end
 
   def top_five_player

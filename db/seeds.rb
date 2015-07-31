@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+=begin
 games = ["FIFA", "TENNIS", "BOXING","Basketball"]
 
 players = ["Mohit","Ashvini","Sakshi","Devendra"]
@@ -28,7 +29,13 @@ end
 venues.each_with_index do |venue,index|
   Match.find_or_create_by(venue: venue, no_of_player: 2, played_on: 24/7/2015,game_id: index+1)
 end
+=end
+emails = ["ashvini4@gmail.com"]
+passwords=["ashvini"]
 
+emails.each_with_index do |email,index|
+  User.find_or_create_by(email: email, password_digest: passwords[index] )
+end
 
 
 

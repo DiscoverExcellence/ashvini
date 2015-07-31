@@ -1,0 +1,11 @@
+%h3 Sign-In
+%div
+  =form_for @user do |f|
+    %br
+    =f.label "Email"
+    =f.text_field :email
+    %br 
+    =f.label "password"
+    =f.password_field :password
+    %br 
+    %input{:type => "submit", :value => "Sign in"}

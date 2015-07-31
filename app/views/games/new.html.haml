@@ -1,0 +1,12 @@
+%h3 Create New Game
+=form_for Game.new do |f|
+  =f.label "Name"
+  =f.text_field :name
+  %br
+  =f.label "Description"
+  =f.text_field :description
+  %br
+  =f.label "Scoring points"
+  =f.text_field :scoring_pts
+  %br
+  =f.submit
