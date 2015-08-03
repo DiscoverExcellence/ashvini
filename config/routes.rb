@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
-  get "login",to: 'users#index'
+ # get "login",to: 'users#index'
 #  get  "user" , to: "users#show"
   post "users",to: "users#login"
   get "welcome",to: "users#display"
-  get "logout",to:"users#logout"
-  root 'tournaments#dashboard'
+  get "logout",to: "users#index"
+#  root 'tournaments#dashboard'
+  root "users#index"
   resources :games
   concern :match do
     resources :matches
   end
-  resources :tournament  do 
+  resources :tournaments  do 
     concerns :match
   end
   concerns :match

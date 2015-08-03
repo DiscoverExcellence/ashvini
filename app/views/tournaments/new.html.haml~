@@ -1,0 +1,7 @@
+=render "shared/header"
+%h3 Create a Tournament
+%form_for @tournament do |f|
+  =f.label "Name"
+  =f.text_field :name
+  %br
+  =f.submit

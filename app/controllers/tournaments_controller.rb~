@@ -3,7 +3,9 @@ class TournamentsController < ApplicationController
   def index
     @tournaments = Tournament.all
   end
-
+def new
+    @tournament = Tournament.new
+  end
   def get_tournament
    @tournament = Tournament.find(params[:id])
 
@@ -17,24 +19,46 @@ class TournamentsController < ApplicationController
   def allow_params
     params.require(:tournament).permit!()
   end
-  def create
-    if @tournaments = Tournament.new(allow_params)
-      if @tournaments.save
-        redirect_to root_path
-      else
-        render :new
-      end
-    end
-  end
   
+  def create
+  @tournament = Tournament.new(allow_params)
+
+  if @tournament.save
+    redirect_to tournaments_path
+  else
+    render :new
+  end
+end
   def dashboard
     @tournaments = Tournament.all
   end
 
-  def edit
+  def destroy
+    if get_tournament
+      @tournament.destroy
+      redirect_to tournaments_path
+    end
   end
-  
+  def update
+    if @tournament = get_tournament
+
+      if @tournament.update_attributes(allow_params)
+        flash[:notice] = "Tournament updated successfully"
+        redirect_to tournaments_path
+      else
+        render :edit
+      end
+    end
+
+  end
   def show
+    if get_tournament
+      render :show
+    end
+  end
+  def destroy
+   
+  
   end
 
 end

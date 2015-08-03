@@ -5,9 +5,12 @@
 # console.log @id
 # return
 $ ->
-  $('.link').click ->
+  $('.a').click ->
     x = $(this).attr 'data-id'
     console.log x
-    $('#yes').attr("href","/tournaments/" + x)
-    return
-  return
+    $("#bc").click ->
+      y = "http://localhost:3000/tournaments/" + x + "/edit"
+      window.location.href = y
+      return
+
+

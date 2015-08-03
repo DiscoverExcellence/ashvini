@@ -13,4 +13,5 @@
     %th
       Actions 
   %tr
+    %td
     =render @games

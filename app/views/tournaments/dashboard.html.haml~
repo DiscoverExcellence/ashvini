@@ -1,4 +1,7 @@
-%table{:border => "1"}
+render "shared/header"
+%br
+%h3 Tournaments
+%table.table
   %tr
     %th
       Name
@@ -13,6 +16,16 @@
       %td= t.name
       %td= t.matches.count
       %td= t.winner
-      %td=link_to "Show",tournament_path(t)
-      %td=link_to "Edit",edit_tournament_path(t)
-      %td=link_to "Delete",tournament_path(t), method: :delete
+      %td=link_to "Show", tournament_path(t)
+      %td=link_to "Edit", edit_tournament_path(t)
+      %td=link_to "Delete", '#mymodal', "data-toggle": 'modal',class: "a","data-id": t.id
+#mymodal.modal.fade{role:"dialog" }
+  .modal-dialog{role:"document"}
+    .modal-content
+      .modal-header
+        .modal-body
+          %p Are you sure?
+        .modal-footer
+        %button.btn.btn-default{id:"bc",:type => "button"} Yes
+        %button.btn.btn-primary{:type => "button"} No
+

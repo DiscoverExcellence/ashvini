@@ -2,7 +2,7 @@
   %td= game.name
   %td= game.description
   %td= game.scoring_pts
-  %td=game_date(game)
+  %td= game_date(game)
   %td= link_to "Edit", edit_game_path(game)
-  %td=link_to "Show", game_path(game) , method: :delete
-  %td=link_to "Delete", game_path(game) , method: :delete
+  %td= link_to "Show", game_path(game) , method: :delete
+  %td= link_to "Delete", game_path(game) , method: :delete, confirm: "Are you sure?"

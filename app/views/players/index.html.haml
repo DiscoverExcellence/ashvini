@@ -1,0 +1,15 @@
+=render "shared/header"
+%h3 Players
+%table.table
+  %tr
+    %th
+      Name
+         
+    %th{:colspan => "3"}
+      Actions
+  - @players.each do |t|
+    %tr
+      %td= t.name
+      %td=link_to "Show", player_path(t)
+      %td=link_to "Edit", edit_player_path(t)
+      %td=link_to "Delete", player_path(t), method: :delete, confirm: "Are you sure?"

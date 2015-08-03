@@ -1,0 +1,8 @@
+=render "shared/header"
+%h3 Create a Tournament
+%form
+  %h5 Enter details
+  =f.label "Name"
+  =f.text_field :name
+  %br
+  =f.submit

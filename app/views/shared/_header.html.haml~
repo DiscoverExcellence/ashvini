@@ -1,4 +1,4 @@
-.navbar.navbar-inverse{"background-color": "blue"}
+.navbar.navbar-inverse
   %ul.nav.navbar-nav
     %li.active{role: "presentation"}
       =link_to "Home", tournaments_path

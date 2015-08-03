@@ -1,6 +1,8 @@
 %h3 Edit a Tournament
-=form_for @tournaments do |t|
+=form_for @tournament do |f|
+  =@tournament.errors.full_messages unless @tournament.valid?
+  %h3 Enter details
   =f.label "Name"
   =f.text_field :name
-  %br
+  %br 
   =f.submit

@@ -1,11 +1,12 @@
-%h3 Sign-In
-%div
-  =form_for @user do |f|
-    %div
-      =f.label "Email     "
-      =f.text_field :email
-    %div 
-      =f.label "password"
-      =f.password_field :password
-    %br 
-    %input{:type => "submit", :value => "login"}
+%center
+  %h2 Sports League
+%center
+  .login_inner_container
+    %h3.form-signin-heading Sign In
+    =form_for @user,:html => {class: "form-signin"} do  |f|
+
+      =f.text_field :email , {class: "form-control",:autofocus => "", :placeholder => "Email address", :required => "", :type => "email",:style => "width: 300px;"}
+      =f.text_field :password , {class: "form-control",:autofocus => "", :placeholder => "password", :required => "", :type => "password",:style => "width: 300px;"}
+      %label
+      =f.submit "Sign in", {class: "btn btn-lg btn-primary btn-block", :type => "submit",:style => "width: 300px;"} 
+
