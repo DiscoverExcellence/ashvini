@@ -23,14 +23,14 @@ class GamesController < ApplicationController
   def create
     if @game = Game.new(allow_params)
       if @game.save
-        redirect_to root_path
+        redirect_to _path
       else
         render :new
       end
     end
   end
   def allow_params
-    params.require(:game).permit(:name)
+    params.require(:game).permit!()
   end
 
   def edit

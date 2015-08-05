@@ -12,23 +12,34 @@ Rails.application.routes.draw do
   get "logout",to: "users#index"
 #  root 'tournaments#dashboard'
   root "users#index"
-  resources :games
   concern :match do
     resources :matches
   end
+
   concern :player do
     resources :players
+  end
+ 
+  resources :games do
+    resources :tournaments do
+      resources :matches do
+        resources :players
+      end
+    end
   end
 
   resources :tournaments  do 
     concerns :match
   end
-  concerns :match
-  
+
+  resources :games do
+    concerns :match
+  end
   resources :players
   resources :matches do
     concerns :player
   end
+
 =begin
   concerns :match, except: [:create]
   namespace :admin do

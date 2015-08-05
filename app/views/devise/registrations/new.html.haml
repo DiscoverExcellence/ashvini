@@ -17,6 +17,9 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation, autocomplete: "off"
+    %br
+    =f.label :role
+    = f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})
   .actions
     = f.submit "Sign up"
 = render "devise/shared/links"

@@ -1,6 +1,6 @@
 =render "shared/header"
 %h3 Edit a Tournament
-=form_for @tournament do |f|
+=nested_form_for @tournament do |f|
   =@tournament.errors.full_messages unless @tournament.valid?
   %h3 Enter details
   =f.label "Name"

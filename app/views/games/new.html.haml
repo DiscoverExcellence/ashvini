@@ -1,7 +1,7 @@
 =render "shared/header"
 %h3 Create New Game
 .form-group
-  =form_for Game.new do |f|
+  =form_for @game do |f|
     =f.label "Name"
     =f.text_field :name
     %br

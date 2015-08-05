@@ -18,9 +18,13 @@
       %td= t.name
       %td= t.matches.count
       %td= t.winner
-      %td=link_to "Show", tournament_path(t)
+      - if can? :show, @tournament
+        %td=link_to "Show", tournament_path(t)
+
       %td=link_to "Edit", edit_tournament_path(t)
-      %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id
+      %td=link_to "Matches",tournament_matches_path(t)
+      - if can? :delete, @tournament
+        %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content

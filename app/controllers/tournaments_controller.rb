@@ -17,7 +17,6 @@ class TournamentsController < ApplicationController
   
   def edit
     if get_tournament
-
       render :edit
     end 
   end
