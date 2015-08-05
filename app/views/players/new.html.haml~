@@ -1,0 +1,7 @@
+=render "shared/header"
+%h3 Add New Player
+.form-group
+  =form_for @player do |f|
+    =f.label "Name"
+    =f.text_field :name
+    =f.submit "Create"

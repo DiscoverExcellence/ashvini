@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+    devise_scope :user do
+      patch "/confirm" => "confirmations#confirm"
+    end
+  #devise_for :users
  # get "login",to: 'users#index'
 #  get  "user" , to: "users#show"
   post "users",to: "users#login"
@@ -10,11 +16,19 @@ Rails.application.routes.draw do
   concern :match do
     resources :matches
   end
+  concern :player do
+    resources :players
+  end
+
   resources :tournaments  do 
     concerns :match
   end
   concerns :match
+  
   resources :players
+  resources :matches do
+    concerns :player
+  end
 =begin
   concerns :match, except: [:create]
   namespace :admin do

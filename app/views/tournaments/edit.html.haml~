@@ -1,8 +1,19 @@
+=render "shared/header"
 %h3 Edit a Tournament
 =form_for @tournament do |f|
   =@tournament.errors.full_messages unless @tournament.valid?
   %h3 Enter details
   =f.label "Name"
   =f.text_field :name
-  %br 
+  %br
+  %h4 Add a Match
+
+  =f.fields_for :matches do |m|
+    %br
+    =m.label "Venue"
+    =m.text_field :venue
+    %br
+    =m.label "played On"
+    =m.text_field :played_on
+  %br
   =f.submit

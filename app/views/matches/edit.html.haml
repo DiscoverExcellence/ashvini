@@ -9,4 +9,9 @@
   =f.label "played_on"
   =f.text_field :played_on
   %br
+  =f.fields_for :players do |m, i|
+    %br
+    =m.label "Player#{i}"
+    =m.text_field :name
+  %br
   =f.submit

@@ -1,6 +1,8 @@
 =render "shared/header"
 %br
+=link_to "Add", new_tournament_path,{type: "button"}
 %h3 Tournaments
+= will_paginate @tournaments
 %table.table
   %tr
     %th
@@ -18,8 +20,7 @@
       %td= t.winner
       %td=link_to "Show", tournament_path(t)
       %td=link_to "Edit", edit_tournament_path(t)
-      %td=link_to "Add", new_tournament_path
-      %td=link_to "Delete", tournament_path(t),'#mymodal', "data-toggle": 'modal',class: "a","data-id": t.id
+      %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content
@@ -27,6 +28,6 @@
         .modal-body
           %p Are you sure?
         .modal-footer
-        %button.btn.btn-default{id:"bc",:type => "button"} Yes
-        %button.btn.btn-primary{:type => "button"} No
+        %a{:class=> "btn btn-default" ,id:"yes",:type => "button","data-method": :delete, "href"=> ""} Yes
+        %button.btn.btn-primary{:type => "button","data-dismiss": "modal"} No
 

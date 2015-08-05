@@ -10,7 +10,7 @@
       =link_to "Games", games_path 
   %ul.nav.navbar-nav.navbar-right
     %li.active{role: "presentation"}
-      =link_to "Logout", root_path
+      =link_to "Logout", destroy_user_session_path,method: :delete
   
 
        

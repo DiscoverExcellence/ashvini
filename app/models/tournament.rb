@@ -1,7 +1,10 @@
+#require 'will_paginate'
 class Tournament < ActiveRecord::Base
   has_many :matches
   has_many :scores
   belongs_to :game
+  accepts_nested_attributes_for :matches
+  
   def hello
     p "Hello"
   end

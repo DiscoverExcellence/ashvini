@@ -1,8 +1,21 @@
 class MatchesController < ApplicationController
-def index
-  @matches = Match.all
-end
-def update
+  def index
+    @matches = Match.all
+  end
+  def new
+    @match = Match.new
+  end
+
+  def create
+    if @match = Match.new(allow_params)
+      if @match.save
+        redirect_to root_path
+      else
+        render :new
+      end
+    end
+  end
+  def update
     if @match = get_match
 
       if @match.update_attributes(allow_params)
@@ -14,20 +27,22 @@ def update
     end
 
   end
-def allow_params
+  def allow_params
     params.require(:match).permit!()
   end
-def get_match
-     @match = Match.find(params[:id])
+  def get_match
+    @match = Match.find(params[:id])
   end
-def edit
+  def edit
     @match = get_match
+    @match.players.build
+    @match.players.build
     if @match
-     render :edit
+      render :edit
     end 
 
-end
-def destroy
+  end
+  def destroy
     if @match = get_match
       @match.destroy
       redirect_to matches_path

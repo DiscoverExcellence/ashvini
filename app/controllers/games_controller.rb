@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
-#  before_filter :get_game
+  #  before_filter :get_game
   #after_filter :display_msg
   def get_game
-     @game = Game.find(params[:id])
+    @game = Game.find(params[:id])
   end
   def index
     @games= Game.all
@@ -36,13 +36,13 @@ class GamesController < ApplicationController
   def edit
     @game = get_game
     if @game
-      @game.matches.build
-      @game.matches.build
+     # @game.matches.build
+      #@game.matches.build
       # render :edit
     end 
 
   end
-  
+
   def update
     if @game = get_game
 
