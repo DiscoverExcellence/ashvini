@@ -6,6 +6,5 @@
   %td= link_to "Edit", edit_game_path(game)
   %td= link_to "Show", game_path(game)
   %td= link_to "list of Matches", game_matches_path(game)
-  %td= link_to "list of Tournaments", game_tournaments_path(game)
   %td= link_to "Create Match", new_game_match_path(game)
   %td= link_to "Delete", game_path(game) , method: :delete, confirm: "Are you sure?"

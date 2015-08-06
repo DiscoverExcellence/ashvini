@@ -1,6 +1,6 @@
 =render "shared/header"
 %h3 Create a Tournament
-=nested_form_for @tournament do |f|
+=nested_form_for @tournament,{url: game_tournaments_path,method: :post} do |f|
   =f.label "Name"
   =f.text_field :name
   =f.fields_for :matches do |m|
@@ -10,6 +10,7 @@
     =m.label "played on:"
     =m.text_field :played_on
     =m.link_to_remove "remove match"
+    =m.hidden_field {value: params[:game_id]}
     %br
   =f.link_to_add "Add a Match", :matches
   %br

@@ -2,7 +2,7 @@
 class TournamentsController < ApplicationController
   #before_filter :get_tournament
   def index
-    @tournaments = Tournament.where(game_id: params[:game_id]).paginate(page: params[:page], per_page: 3) if params[:game_id]
+    @tournaments = Tournament.where(game_id: params[:game_id]).paginate(page: params[:page], per_page: 3) if(params[:game_id])
   end
   def new
     @tournament = Tournament.new

@@ -30,8 +30,9 @@ class GamesController < ApplicationController
     if @game
      # @game.matches.build
       #@game.matches.build
-       
-       
+       render :edit
+    else
+       redirect_to games_path
     end 
 
   end

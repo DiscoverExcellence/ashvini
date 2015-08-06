@@ -2,6 +2,7 @@
 %h3 Create New Match
 .form-group
   =form_for @match,{url: game_matches_path, method: :post,} do |f|
+    =:game_id
     =f.label "venue"
     =f.text_field :venue
     %br

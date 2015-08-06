@@ -1,15 +1,8 @@
+=render "shared/header"
 %h3 Edit a Game
-=form_for @game do |f|
+=form_for @game, url: games_path, method: :patch do |f|
   =@game.errors.full_messages unless @game.valid?
   enter details
-  %br
-  =f.fields_for :matches do |m|
-    %br
-    =m.label "Venue"
-    =m.text_field :venue
-    %br
-    =m.label "played On"
-    =m.text_field :played_on
   %br
   =f.label "Name"
   =f.text_field :name

@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
     allow_params[:game_id] = params[:game_id]
     if @match = Match.new(allow_params)
       if @match.save
-        redirect_to game_matches_path(params[:game_id])
+        redirect_to game_matches_path
       else
         render :new
       end

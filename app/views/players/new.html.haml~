@@ -1,7 +1,7 @@
 =render "shared/header"
 %h3 Add New Player
 .form-group
-  =form_for @player, {url: match_players_path(params[:match_id]), method: :post} do |f|
+  =form_for @player, {url: match_player_path, method: :post} do |f|
     =f.label "Name"
     =f.text_field :name
     %br

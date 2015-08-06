@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   get "logout",to: "users#index"
 #  root 'tournaments#dashboard'
   root "users#index"
-  concern :match do
-    resources :matches
-  end
+#  concern :match do
+ #   resources :matches
+ # end
 
   concern :player do
     resources :players
@@ -29,11 +29,11 @@ Rails.application.routes.draw do
   end
 
   resources :tournaments  do 
-    concerns :match
+    resources :matches
   end
 
   resources :games do
-    concerns :match
+    resources :matches
   end
   resources :players
   resources :matches do

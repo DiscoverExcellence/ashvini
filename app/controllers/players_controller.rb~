@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
       @match = Match.find(params[:match_id])
       @players = @match.players
     else
-      Player.all
+      Match.all
     end
 
   end

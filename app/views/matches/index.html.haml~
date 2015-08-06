@@ -3,8 +3,6 @@
 %table.table
   %tr
     %th
-      No. of players
-    %th
       Venue
     %th
       Played on
@@ -13,9 +11,9 @@
       Actions
   - @matches.each do |t|
     %tr
-      %td= t.no_of_player
       %td= t.venue
       %td= t.played_on
       %td=link_to "Show", match_path(t)
       %td=link_to "Edit", edit_match_path(t)
+      %td= link_to "Players", match_players_path(t)
       %td=link_to "Delete", match_path(t), method: :delete, confirm: "Are you sure?"
