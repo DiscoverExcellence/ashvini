@@ -1,6 +1,6 @@
 =render "shared/header"
 %h3 Edit a Tournament
-=form_for @tournament do |f|
+=nested_form_for @tournament, url: game_tournaments_path(params[:game_id]) do |f|
   =@tournament.errors.full_messages unless @tournament.valid?
   %h3 Enter details
   =f.label "Name"
@@ -15,5 +15,7 @@
     %br
     =m.label "played On"
     =m.text_field :played_on
+  %p
+    =f.link_to_add "Add one more match", :matches 
   %br
   =f.submit

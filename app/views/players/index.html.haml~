@@ -5,7 +5,7 @@
   - if params[:game_id]
     =link_to "Add New Player", new_game_match_player_path(params[:game_id], params[:match_id]) unless params[:tournament_id]
 %h3 Players
-=will_paginate @players, renderer: BootstrapPagination::Rails
+
 %table.table
   %tr
     %th
@@ -24,7 +24,7 @@
           %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id, "game-id": params[:game_id], "match-id": params[:match_id] unless params[:tournament_id]
         - else
           %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id 
-
+=will_paginate @players, renderer: BootstrapPagination::Rails
 #mymodal.modal.fade{role: "dialog" }
   .modal-dialog{role:"document"}
     .modal-content

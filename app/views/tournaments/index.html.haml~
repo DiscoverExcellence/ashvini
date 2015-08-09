@@ -1,8 +1,9 @@
 =render "shared/header"
 %br
-%a{:class=> "btn btn-default" ,id:"yes",:type => "button", "href"=> new_game_tournament_path(params[:game_id])} New Tournament
+- if can? :create, Tournament
+  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_path(params[:game_id], params[:tournament_id])} New Tournament
 %h3 Tournaments
-= will_paginate @tournaments
+
 %table.table
   %tr
     %th
@@ -19,13 +20,14 @@
       %td= t.name
       %td= t.matches.count
       %td= t.winner
-      - if can? :show, @tournament
-        %td=link_to "Show", tournament_path(t)
-
-      %td=link_to "Edit", edit_tournament_path(t)
-      %td=link_to "Matches",tournament_matches_path(t)
-      - if can? :delete, @tournament
-        %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id
+      %td=link_to "Show", game_tournament_path(params[:game_id], t)
+      - if can? :update, t     
+        %td=link_to "Edit", edit_game_tournament_path(params[:game_id], t)
+      %td=link_to "Matches",game_tournament_matches_path(params[:game_id], t)
+      - if can? :destroy, t
+        %span delete, {class: "glyphicon-class"} 
+        %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id, "game-id": params[:game_id]
+= will_paginate @tournaments,renderer: BootstrapPagination::Rails
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content

@@ -8,7 +8,7 @@ class UserController < ApplicationController
     params.require(:user).permit!()
   end
   def show
-   
+    p "hello"
     @user = User.where(allow_params).first
     p @user
     if @user

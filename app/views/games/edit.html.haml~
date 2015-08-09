@@ -1,16 +1,17 @@
 =render "shared/header"
 %h3 Edit a Game
-=form_for @game, url: games_path, method: :patch do |f|
-  =@game.errors.full_messages unless @game.valid?
-  enter details
-  %br
-  =f.label "Name"
-  =f.text_field :name
-  %br 
-  =f.label "Description"
-  =f.text_field :description
-  %br 
-  =f.label "Scoring points"
-  =f.text_field :scoring_pts
-  %br 
-  =f.submit
+.form-group
+  =form_for @game do |f|
+    =@game.errors.full_messages unless @game.valid?
+    enter details
+    %br
+    =f.label "Name"
+    =f.text_field :name, {class: "form-control", style: "width: 350px;"}
+    %br 
+    =f.label "Description"
+    =f.text_field :description, {class: "form-control"}
+    %br 
+    =f.label "Scoring points"
+    =f.text_field :scoring_pts, {class: "form-control"}
+    %br 
+    =f.submit

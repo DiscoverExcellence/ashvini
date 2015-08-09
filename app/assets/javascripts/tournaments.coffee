@@ -6,8 +6,11 @@
 # return
 $ ->
   $('.link').click ->
+    y = $(this).attr 'game-id'
+    console.log y
     x = $(this).attr 'data-id'
     console.log x
-    $('#yes').attr("href","/tournaments/" + x)
+   
+    $('#yes').attr("href","/games/"+y+"/tournaments/"+x)
     return
   return

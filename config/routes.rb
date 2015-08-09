@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
+#devise_for :users, controllers: {
+   #       sessions: 'users/sessions'
+    #            }
 
-    devise_scope :user do
-      patch "/confirm" => "confirmations#confirm"
-    end
+   # devise_scope :user do
+    #  patch "/confirm" => "confirmations#confirm"
+   # end
   #devise_for :users
  # get "login",to: 'users#index'
 #  get  "user" , to: "users#show"
@@ -36,9 +39,11 @@ Rails.application.routes.draw do
     resources :matches
   end
   resources :players
+resources :games do
   resources :matches do
     concerns :player
   end
+end
 
 =begin
   concerns :match, except: [:create]

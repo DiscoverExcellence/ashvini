@@ -4,7 +4,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
   def index
-    @games= Game.all
+    @games= Game.all.paginate(:page => params[:page], :per_page => 5)
    
   end
   def new
@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   def create
     if @game = Game.new(allow_params)
       if @game.save
-        redirect_to games_path(@game)
+        redirect_to games_path(params[:game_id])
       else
         render :new
       end
@@ -35,7 +35,11 @@ class GamesController < ApplicationController
     end 
 
   end
+ def show 
+  @game = get_game
 
+
+ end
   def update
     if @game = get_game
 

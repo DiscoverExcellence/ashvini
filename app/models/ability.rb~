@@ -25,6 +25,7 @@ class Ability
        
        if user.role == "user"
          can :show, :all
+  
        end
       
     #

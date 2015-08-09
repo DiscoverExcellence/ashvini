@@ -1,5 +1,11 @@
 =render "shared/header"
+-if can? :create, Match
+  - if params[:tournament_id]
+    %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_match_path(params[:game_id],params[:tournament_id]), style: "background-color: #D14836;"} New Match
+  - else
+    %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_match_path(params[:game_id]), style: "background-color: #D14836;"} New Match
 %h3 Matches
+= will_paginate @matches, renderer: BootstrapPagination::Rails
 %table.table
   %tr
     %th
@@ -11,9 +17,36 @@
       Actions
   - @matches.each do |t|
     %tr
-      %td= t.venue
-      %td= t.played_on
-      %td=link_to "Show", match_path(t)
-      %td=link_to "Edit", edit_match_path(t)
-      %td= link_to "Players", match_players_path(t)
-      %td=link_to "Delete", match_path(t), method: :delete, confirm: "Are you sure?"
+      - if params[:tournament_id]
+        %td= t.venue
+        %td= t.played_on
+        %td= link_to "Show", game_tournament_match_path(params[:game_id], params[:tournament_id], t)
+        - if can? :update, t
+          %td= link_to "Edit", edit_game_tournament_match_path(params[:game_id],params[:tournament_id], t)
+        %td= link_to "Players", game_tournament_match_players_path(params[:game_id], params[:tournament_id], t)
+        - if can? :delete, t
+          %td= link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "tournament-id": params[:tournament_id], "game-id": params[:game_id]
+                
+      - else
+        %td= t.venue
+        %td= t.played_on
+        %td= link_to "Show", game_match_path(params[:game_id], t)
+        - if can? :update, t
+          %td= link_to "Edit", edit_game_match_path(params[:game_id], t)
+        %td= link_to "Players", game_match_players_path(params[:game_id], t)
+        - if can? :delete, t
+          %td= link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "game-id": params[:game_id]
+
+#mymodal.modal.fade{role:"dialog" }
+  .modal-dialog{role:"document"}
+    .modal-content
+      .modal-header
+        .modal-body
+          %p Are you sure?
+        .modal-footer
+        -if params[:tournament_id]
+          %a{:class=> "btn btn-default" ,id:"yes3",:type => "button","data-method": :delete, "href"=> ""} Yes
+        -else
+          %a{:class=> "btn btn-default" ,id:"yes2",:type => "button","data-method": :delete, "href"=> ""} Yes
+        %button.btn.btn-primary{:type => "button","data-dismiss": "modal"} No
+

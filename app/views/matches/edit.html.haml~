@@ -1,6 +1,6 @@
 =render "shared/header"
 %h3 Edit a Match
-=form_for @match do |f|
+=nested_form_for @match, {url: game_match_path(params[:game_id], params[:id])} do |f|
   =@match.errors.full_messages unless @match.valid?
   %h5 Enter details
   =f.label "venue"
@@ -9,9 +9,11 @@
   =f.label "played_on"
   =f.text_field :played_on
   %br
-  =f.fields_for :players do |m, i|
+  =f.fields_for :players do |m|
     %br
-    =m.label "Player#{i}"
+    =m.label "Player"
     =m.text_field :name
-  %br
+    =m.link_to_remove "remove player"
+    %br
+  =f.link_to_add "Add A player" ,:players
   =f.submit

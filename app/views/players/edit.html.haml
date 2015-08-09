@@ -1,8 +1,9 @@
 =render "shared/header"
-%h3 Edit a player
-=form_for @player do |f|
-  =@player.errors.full_messages unless @player.valid?
-  %h5 Enter details
-  =f.label "name"
-  =f.text_field :name
-  =f.submit
+.col-lg-6
+  .well.well-sm
+    %h3 Edit a player
+    =form_for @player do |f|
+      =@player.errors.full_messages unless @player.valid?
+      =f.label "name"
+      =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+      =f.submit

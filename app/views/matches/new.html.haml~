@@ -1,12 +1,21 @@
 =render "shared/header"
 %h3 Create New Match
 .form-group
-  =form_for @match,{url: game_matches_path, method: :post,} do |f|
-    =:game_id
-    =f.label "venue"
-    =f.text_field :venue
-    %br
-    =f.label "played on:"
-    =f.text_field :played_on
-    %br
-    =f.submit "Create"
+  -if params[:tournament_id]
+    =form_for @match, {url: game_tournament_matches_path(params[:game_id], params[:tournament_id]), method: :post} do |f|
+      =f.label "venue"
+      =f.text_field :venue
+      %br
+      =f.label "played on:"
+      =f.text_field :played_on
+      %br
+      =f.submit "Create"
+  -else
+    =form_for @match, {url: game_matches_path(params[:game_id]), method: :post} do |f|
+      =f.label "venue"
+      =f.text_field :venue
+      %br
+      =f.label "played on:"
+      =f.text_field :played_on
+      %br
+      =f.submit "Create"

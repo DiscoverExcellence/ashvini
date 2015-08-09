@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $('.link_player').click ->
+  $('.link_match').click ->
     w = $(this).attr 'match-id'
     console.log y
     y = $(this).attr 'game-id'

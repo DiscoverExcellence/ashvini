@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
       @match = Match.find(params[:match_id])
       @players = @match.players
     else
-      Match.all
+      @players = Player.all.paginate(:page => params[:page], :per_page => 5)
     end
 
   end
@@ -14,9 +14,11 @@ class PlayersController < ApplicationController
   end
 
   def create
+    allow_params[:match_id] = params[:match_id]
     @player = Player.new(allow_params)
     if @player.save
-      redirect_to match_players_path(params[:match_id])
+      Score.create(match_id: params[:match_id], game_id: params[:game_id])
+      redirect_to game_tournament_match_players_path(params[:game_id], params[:tournament_id], params[:match_id])
     else
       render :new
     end
@@ -34,7 +36,9 @@ class PlayersController < ApplicationController
     end
 
   end
-
+ def show
+   @player = get_player
+ end
   def allow_params
     params.require(:player).permit!()
   end
@@ -53,7 +57,11 @@ class PlayersController < ApplicationController
   def destroy
     if @player = get_player
       @player.destroy
-      redirect_to players_path
+     
+      redirect_to players_path unless params[:game_id]
+   
+      
+        redirect_to game_tournament_match_players_path(params[:game_id], params[:tournament_id],params[:match_id])if params[:game_id]
     end
   end
 

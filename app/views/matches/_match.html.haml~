@@ -1,0 +1,7 @@
+=f.label "venue"
+=f.text_field :venue
+%br
+=f.label "played on:"
+=f.text_field :played_on
+%br
+=f.submit "Create"

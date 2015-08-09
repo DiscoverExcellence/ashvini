@@ -1,8 +1,16 @@
 =render "shared/header"
 %h3 Add New Player
 .form-group
-  =form_for @player, {url: match_player_path, method: :post} do |f|
-    =f.label "Name"
-    =f.text_field :name
-    %br
-    =f.submit "Create"
+  -unless params[:match_id]
+    =form_for @player, {url: players_path(params[:match_id]), method: :post} do |f|
+      =f.label "Name"
+      =f.text_field :name
+      %br
+      =f.submit "Create"
+  - else
+    =form_for @player, {url: game_tournament_match_players_path(params[:match_id]), method: :post} do |f|
+      =f.label "Name"
+      =f.text_field :name
+      %br
+      =f.submit "Create"
+

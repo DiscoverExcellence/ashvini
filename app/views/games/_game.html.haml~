@@ -3,8 +3,23 @@
   %td= game.description
   %td= game.scoring_pts
   %td= game_date(game)
-  %td= link_to "Edit", edit_game_path(game)
+  -if can? :update, game
+    %td= link_to "Edit", edit_game_path(game)
   %td= link_to "Show", game_path(game)
   %td= link_to "list of Matches", game_matches_path(game)
-  %td= link_to "Create Match", new_game_match_path(game)
-  %td= link_to "Delete", game_path(game) , method: :delete, confirm: "Are you sure?"
+  %td= link_to "list of Tournaments", game_tournaments_path(game)
+  -if can? :create, Match  
+    %td= link_to "Create Match", new_game_match_path(game)
+  -if can? :destroy, game
+    %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link1", "data-id": game.id
+= will_paginate @games, renderer: BootstrapPagination::Rails
+#mymodal.modal.fade{role:"dialog" }
+  .modal-dialog{role:"document"}
+    .modal-content
+      .modal-header
+        .modal-body
+          %p Are you sure?
+        .modal-footer
+        %a{:class=> "btn btn-default" ,id:"yes1",:type => "button","data-method": :delete, "href"=> ""} Yes
+        %button.btn.btn-primary{:type => "button","data-dismiss": "modal"} No
+

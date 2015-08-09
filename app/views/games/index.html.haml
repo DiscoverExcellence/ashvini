@@ -1,8 +1,9 @@
 =render "shared/header"
+-if can? :create, Game
+  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_path, style: "background-color: #D14836;"} New Game
 
-%a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_path, style: "background-color: #D14836;"} New Game
 %h3 Games
-
+= will_paginate @games, renderer: BootstrapPagination::Rails
 %table.table
   %tr 
     %th 
@@ -16,4 +17,6 @@
     %th
       Actions 
   %tr
+
     =render @games
+

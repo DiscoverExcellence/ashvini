@@ -1,11 +1,23 @@
 =render "shared/header"
-%h3 Create New Match
-.form-group
-  =form_for @match,{url: game_matches_path, method: :post,} do |f|
-    =f.label "venue"
-    =f.text_field :venue
-    %br
-    =f.label "played on:"
-    =f.text_field :played_on
-    %br
-    =f.submit "Create"
+.col-lg-6
+  .wll.well-sm
+    %h3 Create New Match
+    .form-group
+      -if params[:tournament_id]
+        =form_for @match, {url: game_tournament_matches_path(params[:game_id], params[:tournament_id]), method: :post} do |f|
+          =f.label "venue"
+          =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
+          %br
+          =f.label "played on:"
+          =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
+          %br
+          =f.submit "Create"
+      -else
+        =form_for @match, {url: game_matches_path(params[:game_id]), method: :post} do |f|
+          =f.label "venue"
+          =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
+          %br
+          =f.label "played on:"
+          =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
+          %br
+          =f.submit 

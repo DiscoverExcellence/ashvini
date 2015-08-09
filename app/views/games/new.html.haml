@@ -1,14 +1,16 @@
 =render "shared/header"
-%h3 Create New Game
-.form-group
-  =form_for @game do |f|
-    =f.label "Name"
-    =f.text_field :name
-    %br
-    =f.label "Description"
-    =f.text_field :description
-    %br
-    =f.label "Scoring points"
-    =f.text_field :scoring_pts
-    %br
-    =f.submit "Create"
+.col-lg-6
+  .well.well-sm
+    %h3 Create New Game
+    .form-group
+      =form_for @game do |f|
+        =f.label "Name"
+        =f.text_field :name, {class: "form-control", style: "width: 350px;"}
+        %br
+        =f.label "Description"
+        =f.text_field :description, {class: "form-control", style: "width: 350px;"}
+        %br
+        =f.label "Scoring points"
+        =f.text_field :scoring_pts , {class: "form-control", style: "width: 350px;"}
+        %br
+        =f.submit "Create"
