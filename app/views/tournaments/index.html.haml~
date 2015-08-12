@@ -1,9 +1,9 @@
 =render "shared/header"
 %br
 - if can? :create, Tournament
-  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_path(params[:game_id], params[:tournament_id])} New Tournament
+  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_path(params[:game_id], params[:tournament_id]), style:  "background-color: #D14836;"} New Tournament
 %h3 Tournaments
-
+= will_paginate @tournaments,renderer: BootstrapPagination::Rails
 %table.table
   %tr
     %th
@@ -24,10 +24,9 @@
       - if can? :update, t     
         %td=link_to "Edit", edit_game_tournament_path(params[:game_id], t)
       %td=link_to "Matches",game_tournament_matches_path(params[:game_id], t)
-      - if can? :destroy, t
-        %span delete, {class: "glyphicon-class"} 
+      - if can? :destroy, t 
         %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id, "game-id": params[:game_id]
-= will_paginate @tournaments,renderer: BootstrapPagination::Rails
+
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content

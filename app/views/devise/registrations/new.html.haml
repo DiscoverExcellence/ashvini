@@ -1,25 +1,32 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  =registration_path(resource_name)
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-    %br
-    =f.label :role
-    = f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.col-lg-6
+  .well.well-sm
+    %h2 Sign up
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+
+      = devise_error_messages!
+      .field
+        = f.label :email
+        %br/
+        = f.email_field :email, {class: "form-control", autofocus: true, style: "width: 350px;"}
+        %br
+      .field
+        = f.label :password
+        - if @minimum_password_length
+          %em
+            (#{@minimum_password_length} characters minimum)
+        %br/
+        = f.password_field :password,{class: "form-control", autofocus: true, style: "width: 350px;", autocomplete: "off"}
+        %br
+      .field
+        = f.label :password_confirmation
+        %br/
+        = f.password_field :password_confirmation,{class: "form-control", autofocus: true, style:     "width: 350px;", autocomplete: "off"}
+        %br
+        =f.label :role
+        %br
+        = f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})
+        %br/
+        %br
+      .actions
+        = f.submit "Sign up",{class: "btn btn-primary", type: "button"}
+    = render "devise/shared/links"

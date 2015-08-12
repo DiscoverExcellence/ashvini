@@ -3,16 +3,35 @@
   .well.well-sm
     %h3 Add New Player
     .form-group
-      -unless params[:match_id]
-        =form_for @player, {url: players_path(params[:match_id]), method: :post} do |f|
+      -unless @match
+        =nested_form_for @player, {url: players_path(@match), method: :post, :html => {:multipart => true}} do |f|
           =f.label "Name"
           =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+          =f.label "photo"
+          = f.file_field :avatar
+
           %br
           =f.submit "Create"
-      - else
-        =form_for @player, {url: game_tournament_match_players_path(params[:game_id], params[:tournament_id], params[:match_id]), method: :post} do |f|
-          =f.label "Name"
-          =f.text_field :name, {class: "form-control", style: "width: 350px;" }
-          %br
-          =f.submit "Create"
+      - if @game
+        -unless @tournament
+          =nested_form_for @player, {url: game_match_players_path(@game, @match), method: :post} do |f|
+
+            = f.label "Name"
+            = f.text_field :name, {class: "form-control", style: "width: 350px;" }
+            = f.label "photo"
+            = f.file_field :avatar
+
+            %br
+            =f.submit "Create"
+        - if @tournament
+          =nested_form_for @player, {url: game_tournament_match_players_path(@game,@tournament, @match), method: :post} do |f|
+            = f.label "Name"
+            = f.text_field :name, {class: "form-control", style: "width: 350px;" }
+            %br
+            = f.label "photo"
+            = f.file_field :avatar
+            %br
+            
+            =f.submit "Create"
+
 

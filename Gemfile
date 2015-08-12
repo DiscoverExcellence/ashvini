@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
  gem 'will_paginate-bootstrap', '~> 1.0.1'
  gem 'devise'
  gem 'cancancan', '~> 1.10'
+ gem 'rmagick'
+ gem 'carrierwave'
  # Use Unicorn as the app server
 # gem 'unicorn'
 

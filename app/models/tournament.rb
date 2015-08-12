@@ -5,9 +5,6 @@ class Tournament < ActiveRecord::Base
   belongs_to :game
   accepts_nested_attributes_for :matches
   belongs_to :user
-  def hello
-    p "Hello"
-  end
   def winner
     winner= scores.select("player_id").group(:player_id).order("sum(points) desc").first
     if winner

@@ -1,0 +1,7 @@
+=render"shared/header"
+%table
+  %tr
+    %td    
+      =@player.name
+    %td
+      =image_tag @player.avatar_url(:thumb) if @player.avatar? 

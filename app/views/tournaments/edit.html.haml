@@ -2,7 +2,7 @@
 .col-lg-6
   .well.well-sm
     %h3 Edit a Tournament
-    =nested_form_for @tournament, {url: game_tournaments_path(params[:game_id]), method: :post} do |f|
+    =nested_form_for @tournament, {url: game_tournament_path(@game, @tournament)} do |f|
       =@tournament.errors.full_messages unless @tournament.valid?
       =f.label "Name"
       =f.text_field :name, {class: "form-control", style: "width: 350px;" }

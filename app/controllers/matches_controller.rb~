@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
   def index
-    @matches = Match.where(tournament_id: params[:tournament_id], game_id: params[:game_id]) if params[:tournament_id] 
-    @matches = Match.where(game_id: params[:game_id]) unless params[:tournament_id]
+    @matches = Match.where(tournament_id: params[:tournament_id], game_id: params[:game_id]).paginate(:page => params[:page], :per_page => 5) if params[:tournament_id] 
+    @matches = Match.where(game_id: params[:game_id]).paginate(:page => params[:page], :per_page => 5) unless params[:tournament_id]
     
   end
  def index_params
@@ -25,6 +25,7 @@ end
     allow_params[:game_id] = params[:game_id]
     allow_params[:tournament_id] = params[:tournament_id]
     if @match = Match.new(allow_params)
+      @match.players.build
       if @match.save
         redirect_to game_matches_path(params[:game_id]) unless params[:tournament_id]
         redirect_to game_tournament_matches_path(params[:game_id], params[:tournament_id], params[:match_id]) if params[:tournament_id]

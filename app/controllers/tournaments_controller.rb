@@ -13,6 +13,8 @@ class TournamentsController < ApplicationController
   end
   
   def edit
+    @game = Game.find(params[:game_id])
+   
     if get_tournament
       #render :edit
     end 
@@ -27,11 +29,11 @@ class TournamentsController < ApplicationController
 
      allow_params[:user_id] = current_user.id
 
-     @tournament = @game.tournaments.build(allow_params)
+     #@tournament = @game.tournaments.build
      # @matches = @game.matches.build
      # @tournament.matches.build
-     # allow_params[:game_id] = params[:game_id]
-    # @tournament = Tournament.new(allow_params)
+      allow_params[:game_id] = params[:game_id]
+     @tournament = Tournament.new(allow_params)
      
      if @tournament.save
     
@@ -73,6 +75,5 @@ class TournamentsController < ApplicationController
       render :show
     end
   end
-
 
 end

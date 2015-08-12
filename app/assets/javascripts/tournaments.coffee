@@ -5,7 +5,7 @@
 # console.log @id
 # return
 $ ->
-  $('.link').click ->
+  $(document).on 'click', '.link', ->
     y = $(this).attr 'game-id'
     console.log y
     x = $(this).attr 'data-id'

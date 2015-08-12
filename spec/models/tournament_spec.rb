@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Tournament, type: :model do
 #  pending "add some examples to (or delete) #{__FILE__}"
   before(:each) do
-    Game.create(name: "Cricket",description:"Indian Premier League",played_on: 23/4/15)
+    Game.create(name: "Cricket",description:"Indian Premier League",played_on: 23/4/15,scoring_pts: 10)
     Tournament.create(name:"IPL",game_id: Game.where(name: "Cricket").first.id)
     Player.create(name: "Ashvini")
     Player.create(name: "sakshi")
@@ -12,11 +12,7 @@ RSpec.describe Tournament, type: :model do
     Score.create(player_id: Player.last.id, match_id: Match.first.id,points: 0,tournament_id: Tournament.first.id)
     @t = Tournament.first
   end
-  it "returns hello" do
-    t = Tournament.create(name: "Ipl")
-    expect(t.hello).to eq("Hello")
-  end
-   # expect()
+  
   it "returns winner of the tournament" do
     expect(@t.winner).to eq("Ashvini")
 

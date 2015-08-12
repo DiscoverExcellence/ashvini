@@ -16,7 +16,7 @@ class MatchesController < ApplicationController
   def new
     @game = Game.find(params[:game_id])
     @match = @game.matches.build
-   
+    @count = 0
   end
  def show 
   @match = get_match 
@@ -25,6 +25,7 @@ end
     allow_params[:game_id] = params[:game_id]
     allow_params[:tournament_id] = params[:tournament_id]
     if @match = Match.new(allow_params)
+      @match.players.build
       if @match.save
         redirect_to game_matches_path(params[:game_id]) unless params[:tournament_id]
         redirect_to game_tournament_matches_path(params[:game_id], params[:tournament_id], params[:match_id]) if params[:tournament_id]

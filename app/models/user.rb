@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
  # has_secure_password
  # attr_accessor :password_digest
   has_many :tournaments
-  has_many :players 
+  has_many :players
+  # mount_uploader :avatar, AvatarUploader 
 ROLES = %i[admin tournament_manager player_manager user ]
 end
 

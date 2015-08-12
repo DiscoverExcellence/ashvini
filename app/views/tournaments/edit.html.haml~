@@ -1,21 +1,23 @@
 =render "shared/header"
-%h3 Edit a Tournament
-=nested_form_for @tournament, url: game_tournaments_path(params[:game_id]) do |f|
-  =@tournament.errors.full_messages unless @tournament.valid?
-  %h3 Enter details
-  =f.label "Name"
-  =f.text_field :name
-  %br
-  %h4 Add a Match
+.col-lg-6
+  .well.well-sm
+    %h3 Edit a Tournament
+    =nested_form_for @tournament, {url: game_tournament_path(@game), method: :post} do |f|
+      =@tournament.errors.full_messages unless @tournament.valid?
+      =f.label "Name"
+      =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+      %br
+      %h4 Add a Match
 
-  =f.fields_for :matches do |m|
-    %br
-    =m.label "Venue"
-    =m.text_field :venue
-    %br
-    =m.label "played On"
-    =m.text_field :played_on
-  %p
-    =f.link_to_add "Add one more match", :matches 
-  %br
-  =f.submit
+      =f.fields_for :matches do |m|
+        %br
+        =m.label "Venue"
+        =m.text_field :venue, {class: "form-control", style: "width: 350px;" }
+        %br
+        =m.label "played On"
+        =m.text_field :played_on ,{class: "form-control", style: "width: 350px;" }
+        =m.link_to_remove "remove the match"
+      %p
+        =f.link_to_add "Add one more match", :matches 
+      %br
+      =f.submit

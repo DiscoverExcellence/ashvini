@@ -4,7 +4,6 @@
     %h3 Edit a Game
     .form-group
       =form_for @game do |f|
-        =@game.errors.full_messages unless @game.valid?
         %br
         =f.label "Name"
         =f.text_field :name, {class: "form-control", style: "width: 350px;"}

@@ -1,0 +1,50 @@
+=render "shared/header"
+.col-lg-6
+  .well.well-sm
+    %h3 Edit a player
+    -if params[:game_id]
+      -if params[:tournament_id]
+        =form_for @player, {url: game_tournament_match_player_path(params[:game_id],params[:tournament_id], params[:match_id], params[:id])} do |f| 
+          =@player.errors.full_messages unless @player.valid?
+          =f.label "name"
+          =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+  
+          %br
+          =f.label "Photo"
+          = f.file_field :avatar
+          = f.fields_for :scores do |s|
+            = s.label "points"
+            = s.text_field :points
+            = s.select "points", [0, @pts]
+     
+          =f.submit
+      -unless params[:tournament_id]
+        =form_for @player, {url: game_match_player_path(params[:game_id], params[:match_id], params[:id])} do |f| 
+
+          = f.label "name"
+          =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+  
+          %br
+          =f.label "Photo"
+          = f.file_field :avatar
+          %br
+          = f.fields_for :scores do |s|
+            = s.label "points"
+            = s.text_field :points
+            = s.select "points", [0, @pts]
+            = s.hidden_field :match_id ,{value: params[:match_id]}
+            = s.hidden_field :tournament_id, {value: params[:tournament_id]} if params[:tournament_id]
+          %br
+          =f.submit
+    -else
+      =form_for @player do |f| 
+
+        =@player.errors.full_messages unless @player.valid?
+        =f.label "name"
+        =f.text_field :name, {class: "form-control", style: "width: 350px;" }
+  
+        %br
+        =f.label "Photo"
+        = f.file_field :avatar
+     
+        =f.submit

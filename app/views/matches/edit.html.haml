@@ -16,9 +16,13 @@
           %br
           =m.label "Player"
           =m.text_field :name, {class: "form-control", style: "width: 350px;" }
+          %br
+          =m.label "photo"
+          =m.file_field :avatar
           =m.link_to_remove "remove player"
           %br
         =f.link_to_add "Add A player" ,:players
+
         =f.submit
     - else
       =nested_form_for @match, {url: game_tournament_match_path(params[:game_id],params[:tournament_id], params[:id])} do |f|

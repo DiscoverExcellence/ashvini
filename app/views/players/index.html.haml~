@@ -1,12 +1,15 @@
 =render "shared/header"
 -if can? :create, Player
-  =link_to "Add New Player", new_player_path unless params[:game_id]
-  =link_to "Add New Player", new_game_tournament_match_player_path(params[:game_id], params[:tournament_id], params[:match_id]) if params[:tournament_id]
-  - if params[:game_id]
-    =link_to "Add New Player", new_game_match_player_path(params[:game_id], params[:match_id]) unless params[:tournament_id]
+  -unless @game
+    %a{"href": new_player_path, class: "btn btn-default",style: "background-color: #D14836;"} Add New Player
+  - else
+    - if @tournament
+      %a{"href": new_game_tournament_match_player_path(@game, @tournament, @match),class: "btn btn-default",style: "background-color: #D14836;"} Add New Player
+    - else 
+      %a{"href": new_game_match_player_path(@game, @match) ,class: "btn btn-default",style: "background-color: #D14836;"} Add New Player
 %h3 Players
-
-%table.table
+=will_paginate @players, renderer: BootstrapPagination::Rails
+%table.table.table-bordered.table-striped
   %tr
     %th
       Name
@@ -15,16 +18,53 @@
   - @players.each do |t|
     %tr
       %td= t.name
-      %td= link_to "Show", player_path(t)
-      - if can? :update, t
-        %td= link_to "Edit", edit_player_path(t)
-      -if can? :delete, t
-        - if params[:game_id]
-          %td=link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id, "game-id": params[:game_id], "tournament-id": params[:tournament_id],"match-id": params[:match_id] if params[:tournament_id]
-          %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id, "game-id": params[:game_id], "match-id": params[:match_id] unless params[:tournament_id]
+      - if @game
+        - if @tournament  
+          - if can? :update, t
+            %td
+              %a{"href": edit_game_tournament_match_player_path(@game, @tournament, @match,t)}
+                %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+                Edit
+          %td
+            %a{"href": game_tournament_match_player_path(@game, @tournament, @match, t)}
+              %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+              Display
+          - if can? :delete, t
+            %td
+              %a{"href": '#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id, "game-id": @game.id, "tournament-id": @tournament.id,"match-id": @match.id }
+                %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+                Delete
         - else
-          %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id 
-=will_paginate @players, renderer: BootstrapPagination::Rails
+          - if can? :update, t
+            %td
+              %a{"href": edit_game_match_player_path(@game, @match,t)} 
+                %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+                Edit     
+          %td
+            %a{"href": game_match_player_path(@game, @match, t)}
+              %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+              Display
+          - if can? :delete, t 
+            %td
+              %a{"href": '#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id, "game-id": @game.id, "match-id": @match.id}
+                %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+                Delete
+      -else
+        - if can? :edit, t
+          %td
+            %a{"href": edit_player_path(t)}
+              %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+              Edit
+        %td
+          %a{"href": player_path(t)}
+            %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+            Display
+        -if can? :delete, t
+          %td
+            %a{"href": '#mymodal', "data-toggle": 'modal', class: "link_player", "data-id": t.id}
+              %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+              Delete
+
 #mymodal.modal.fade{role: "dialog" }
   .modal-dialog{role:"document"}
     .modal-content
@@ -32,9 +72,11 @@
         .modal-body
           %p Are you sure?
         .modal-footer
-        -if params[:game_id]
-          %a{:class=> "btn btn-default" ,id:"yes1",:type => "button","data-method": :delete, "href"=> ""} Yes if params[:tournament_id] 
-          %a{:class=> "btn btn-default" ,id:"yes2",:type => "button","data-method": :delete, "href"=> ""} Yes unless params[:tournament_id] 
+        -if @game
+          - if @tournament 
+            %a{:class=> "btn btn-default" ,id:"yes1",:type => "button","data-method": :delete, "href"=> ""} Yes 
+          -else
+            %a{:class=> "btn btn-default" ,id:"yes2",:type => "button","data-method": :delete, "href"=> ""} Yes 
         -else
           %a{:class=> "btn btn-default" ,id:"yes3",:type => "button","data-method": :delete, "href"=> ""} Yes
         %button.btn.btn-primary{:type => "button","data-dismiss": "modal"} No

@@ -1,23 +1,45 @@
 =render "shared/header"
 .col-lg-6
-  .wll.well-sm
+  .well.well-sm
     %h3 Create New Match
     .form-group
       -if params[:tournament_id]
-        =form_for @match, {url: game_tournament_matches_path(params[:game_id], params[:tournament_id]), method: :post} do |f|
+        =nested_form_for @match, {url: game_tournament_matches_path(params[:game_id], params[:tournament_id]), method: :post} do |f|
           =f.label "venue"
           =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
           %br
           =f.label "played on:"
           =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
           %br
+          =f.fields_for :players do |m|
+            %br
+            =m.label "Player"
+            =m.text_field :name, {class: "form-control", style: "width: 350px;" }
+            %br
+            =m.label "photo"
+            =m.file_field :avatar
+            =m.link_to_remove "remove player"
+          %br
+  
+          =f.link_to_add "Add A player" ,:players
           =f.submit "Create"
       -else
-        =form_for @match, {url: game_matches_path(params[:game_id]), method: :post} do |f|
+        =nested_form_for @match, {url: game_matches_path(params[:game_id]), method: :post} do |f|
           =f.label "venue"
           =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
           %br
           =f.label "played on:"
           =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
           %br
-          =f.submit 
+          =f.fields_for :players do |m|
+            %br
+            =m.label "Player"
+            =m.text_field :name, {class: "form-control", style: "width: 350px;" }
+            %br
+            =m.label "photo"
+            =m.file_field :avatar
+            =m.link_to_remove "remove player"
+          %br
+          =f.link_to_add "Add A player" ,:players
+          =f.submit "Create"
+       

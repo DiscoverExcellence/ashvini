@@ -1,7 +1,8 @@
 =render "shared/header"
+=flash[:notice]
 %br
 - if can? :create, Tournament
-  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_path(params[:game_id], params[:tournament_id])} New Tournament
+  %a{:class=> "btn btn-default" ,:type => "button", "href"=> new_game_tournament_path(params[:game_id], params[:tournament_id]), style:  "background-color: #D14836;"} New Tournament
 %h3 Tournaments
 = will_paginate @tournaments,renderer: BootstrapPagination::Rails
 %table.table
@@ -20,14 +21,24 @@
       %td= t.name
       %td= t.matches.count
       %td= t.winner
-      %td=link_to "Show", game_tournament_path(params[:game_id], t)
-      - if can? :update, t     
-        %td=link_to "Edit", edit_game_tournament_path(params[:game_id], t)
-      %td=link_to "Matches",game_tournament_matches_path(params[:game_id], t)
+      -if can? :update, t
+        %td
+          %a{"href": edit_game_tournament_path(params[:game_id], t)}
+            %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+            Edit
+      %td
+        %a{"href": game_tournament_path(params[:game_id], t)}
+          %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+          Display
+      %td
+        %a{"href": game_tournament_matches_path(params[:game_id], t)}
+          %span{class: "glyphicon glyphicon-list-alt", "aria-hidden": "true"}
+          Matches
       - if can? :destroy, t
-        %span delete, {class: "glyphicon-class"} 
-        %td=link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id, "game-id": params[:game_id]
-
+        %td
+          %a{"href": '#mymodal', "data-toggle": 'modal', class: "link", "data-id": t.id, "game-id": params[:game_id]}
+            %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+            Delete
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content

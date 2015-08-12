@@ -1,18 +1,28 @@
 %tr
   %td= game.name
   %td= game.description
-  %td= game.scoring_pts
-  %td= game_date(game)
   -if can? :update, game
-    %td= link_to "Edit", edit_game_path(game)
-  %td= link_to "Show", game_path(game)
-  %td= link_to "list of Matches", game_matches_path(game)
-  %td= link_to "list of Tournaments", game_tournaments_path(game)
-  -if can? :create, Match  
-    %td= link_to "Create Match", new_game_match_path(game)
-  -if can? :destroy, game
-    %td= link_to "Delete",'#mymodal', "data-toggle": 'modal', class: "link1", "data-id": game.id
-
+    %td
+      %a{"href": edit_game_path(game)}
+        %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+        Edit
+  %td
+    %a{"href": game_path(game)}
+      %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+      Display
+  %td
+    %a{"href": game_matches_path(game)}
+      %span{class: "glyphicon glyphicon-list-alt", "aria-hidden": "true"}
+      matches
+  %td
+    %a{"href": game_tournaments_path(game)}
+      %span{class: "glyphicon glyphicon-list-alt", "aria-hidden": "true"}
+      Tournaments
+  - if can? :destroy, game
+    %td
+      %a{"href": '#mymodal', "data-toggle": 'modal', class: "link1", "data-id": game.id}
+        %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+        Delete
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}
     .modal-content

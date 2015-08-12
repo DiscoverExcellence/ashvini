@@ -16,4 +16,5 @@
 //= require_tree .
 //= require jquery_nested_form
 window.setTimeout(function(){
-document.getElementsByClassName('flash')[0].style.display = "none"},3000)
+  document.getElementsByClassName('flash')[0].style.display = "none";
+},3000);

@@ -1,3 +1,5 @@
+%center
+  %h3 Discover Excellence
 .navbar.navbar-inverse{"background-color": "blue"}
   %ul.nav.navbar-nav
     %li.active{role: "presentation"}
@@ -5,7 +7,10 @@
     
     %li.active{role: "presentation"}
       =link_to "Players", players_path
-    
+  %ul.nav.navbar-nav.navbar-center
+    %li.active{role: "presentation"}
+      =link_to "Logout", destroy_user_session_path,method: :delete
+   
   %ul.nav.navbar-nav.navbar-right
     %li.active{role: "presentation"}
       =link_to "Logout", destroy_user_session_path,method: :delete

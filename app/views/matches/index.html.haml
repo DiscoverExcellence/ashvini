@@ -12,30 +12,58 @@
       Venue
     %th
       Played on
-     
-    %th{:colspan => "3"}
+    %th
+      winner
+    %th{:colspan => "4"}
       Actions
   - @matches.each do |t|
     %tr
       - if params[:tournament_id]
         %td= t.venue
         %td= t.played_on
-        %td= link_to "Show", game_tournament_match_path(params[:game_id], params[:tournament_id], t)
-        - if can? :update, t
-          %td= link_to "Edit", edit_game_tournament_match_path(params[:game_id],params[:tournament_id], t)
-        %td= link_to "Players", game_tournament_match_players_path(params[:game_id], params[:tournament_id], t)
-        - if can? :delete, t
-          %td= link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "tournament-id": params[:tournament_id], "game-id": params[:game_id]
-                
+        %td= t.winner
+        -if can? :update, t
+          %td
+            %a{"href": edit_game_tournament_match_path(params[:game_id],params[:tournament_id], t)}
+              %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+              Edit
+        %td
+          %a{"href": game_tournament_match_path(params[:game_id], params[:tournament_id], t)}
+            %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+            Display
+        %td
+          %a{"href": game_tournament_match_players_path(params[:game_id], params[:tournament_id], t)}
+            %span{class: "glyphicon glyphicon-list-alt", "aria-hidden": "true"}
+            Players
+        - if can? :destroy, t
+          %td
+            %a{"href": '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "game-id": params[:game_id], "tournament-id": params[:tournament_id]}
+              %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+              Delete
+
       - else
         %td= t.venue
         %td= t.played_on
-        %td= link_to "Show", game_match_path(params[:game_id], t)
-        - if can? :update, t
-          %td= link_to "Edit", edit_game_match_path(params[:game_id], t)
-        %td= link_to "Players", game_match_players_path(params[:game_id], t)
-        - if can? :delete, t
-          %td= link_to "Delete", '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "game-id": params[:game_id]
+        %td= t.winner
+        -if can? :update, t
+          %td
+            %a{"href": edit_game_match_path(params[:game_id], t)}
+              %span{class: "glyphicon glyphicon-edit", "aria-hidden": "true"}
+              Edit
+        %td
+          %a{"href": game_match_path(params[:game_id], t)}
+            %span{class: "glyphicon glyphicon-file", "aria-hidden": "true"}
+            Display
+        %td
+          %a{"href": game_match_players_path(params[:game_id], t)}
+            %span{class: "glyphicon glyphicon-list-alt", "aria-hidden": "true"}
+            Players
+        - if can? :destroy, t
+          %td
+            %a{"href": '#mymodal', "data-toggle": 'modal', class: "link_match", "data-id": t.id, "game-id": params[:game_id]}
+              %span{class: "glyphicon glyphicon-trash", "aria-hidden": "true"}
+              Delete
+ 
 
 #mymodal.modal.fade{role:"dialog" }
   .modal-dialog{role:"document"}

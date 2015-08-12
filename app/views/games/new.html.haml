@@ -1,9 +1,11 @@
 =render "shared/header"
+
 .col-lg-6
   .well.well-sm
     %h3 Create New Game
     .form-group
       =form_for @game do |f|
+        %br
         =f.label "Name"
         =f.text_field :name, {class: "form-control", style: "width: 350px;"}
         %br

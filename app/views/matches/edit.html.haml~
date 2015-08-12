@@ -1,19 +1,46 @@
 =render "shared/header"
-%h3 Edit a Match
-=nested_form_for @match, {url: game_match_path(params[:game_id], params[:id])} do |f|
-  =@match.errors.full_messages unless @match.valid?
-  %h5 Enter details
-  =f.label "venue"
-  =f.text_field :venue
-  %br
-  =f.label "played_on"
-  =f.text_field :played_on
-  %br
-  =f.fields_for :players do |m|
-    %br
-    =m.label "Player"
-    =m.text_field :name
-    =m.link_to_remove "remove player"
-    %br
-  =f.link_to_add "Add A player" ,:players
-  =f.submit
+.col-lg-6
+  .well.well-sm
+    %h3 Edit a Match
+    - unless params[:tournament_id]
+      =nested_form_for @match, {url: game_match_path(params[:game_id], params[:id])} do |f|
+        =@match.errors.full_messages unless @match.valid?
+        %h5 Enter details
+        =f.label "venue"
+        =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
+        %br
+        =f.label "played_on"
+        =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
+        %br
+        
+        = f.select "venue", @match.venue
+        =f.fields_for :players do |m|
+          %br
+          =m.label "Player"
+          =m.text_field :name, {class: "form-control", style: "width: 350px;" }
+          %br
+          =m.label "photo"
+          =m.file_field :avatar
+          =m.link_to_remove "remove player"
+          %br
+        =f.link_to_add "Add A player" ,:players
+
+        =f.submit
+    - else
+      =nested_form_for @match, {url: game_tournament_match_path(params[:game_id],params[:tournament_id], params[:id])} do |f|
+        =@match.errors.full_messages unless @match.valid?
+        %h5 Enter details
+        =f.label "venue"
+        =f.text_field :venue, {class: "form-control", style: "width: 350px;" }
+        %br
+        =f.label "played_on"
+        =f.text_field :played_on, {class: "form-control", style: "width: 350px;" }
+        %br
+        =f.fields_for :players do |m|
+          %br
+          =m.label "Player"
+          =m.text_field :name, {class: "form-control", style: "width: 350px;" }
+          =m.link_to_remove "remove player"
+          %br
+        =f.link_to_add "Add A player" ,:players
+        =f.submit
